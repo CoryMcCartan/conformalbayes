@@ -1,9 +1,9 @@
-url: ~
+url: https://corymccartan.github.io/conformalbayes/
 template:
   bootstrap: 5
   bootswatch: cosmo
   ganalytics: UA-79274202-5
-
 authors:
   Cory McCartan:
-    href: "https://corymccartan.github.io/"
+    href: https://corymccartan.github.io/
+
