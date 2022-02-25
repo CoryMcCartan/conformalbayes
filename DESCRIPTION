@@ -12,7 +12,9 @@ Description: Provides functions to construct finite-sample calibrated predictive
     model, using the locally-weighted conformal methods of Lei et al. (2018)
     <doi:10.1080/01621459.2017.1307116>.
 Imports:
-    loo
+    rstantools,
+    loo,
+    matrixStats
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

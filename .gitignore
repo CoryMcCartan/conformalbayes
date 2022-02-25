@@ -4,3 +4,11 @@ docs
 .Rdata
 .httr-oauth
 .DS_Store
+
+*.rds
+*.rda
+*.tmp
+*.swp
+*.bak
+*.o
+*.so
