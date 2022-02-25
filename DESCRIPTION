@@ -1,0 +1,19 @@
+Package: conformalbayes
+Title: Jackknife+ Predictive Intervals for Bayesian Models
+Version: 0.0.0.9000
+Authors@R: 
+    person("Cory", "McCartan", , "cmccartan@g.harvard.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "https://orcid.org/0000-0002-6251-669X"))
+Description: Provides functions to construct finite-sample calibrated predictive 
+    intervals for Bayesian models, following the approach in Barber et al. 
+    (2020) <doi:10.1214/20-AOS1965>. These intervals are calculated efficiently
+    using importance sampling for the leave-out-one residuals.  By default,
+    the intervals will also reflect the relative uncertainty in the Bayesian 
+    model, using the locally-weighted conformal methods of Lei et al. (2018)
+    <doi:10.1080/01621459.2017.1307116>.
+Imports:
+    loo
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

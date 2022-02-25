@@ -1,0 +1,9 @@
+url: ~
+template:
+  bootstrap: 5
+  bootswatch: cosmo
+  ganalytics: UA-79274202-5
+
+authors:
+  Cory McCartan:
+    href: "https://corymccartan.github.io/"
