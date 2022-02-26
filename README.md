@@ -16,7 +16,7 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 calibrated predictive intervals for Bayesian models, following the
 approach in [Barber et al. (2021)](https://doi.org/10.1214/20-AOS1965).
 These intervals are calculated efficiently using importance sampling for
-the leave-out-one residuals. By default, the intervals will also reflect
+the leave-one-out residuals. By default, the intervals will also reflect
 the relative uncertainty in the Bayesian model, using the
 locally-weighted conformal methods of [Lei et
 al. (2018)](https://doi.org/10.1080/01621459.2017.1307116).
