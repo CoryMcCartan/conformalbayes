@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **conformalbayes**
+# **conformalbayes** <a href="https://corymccartan.github.io/conformalbayes/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -14,7 +14,7 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 
 **conformalbayes** provides functions to construct finite-sample
 calibrated predictive intervals for Bayesian models, following the
-approach in [Barber et al. (2020)](https://doi.org/10.1214/20-AOS1965).
+approach in [Barber et al. (2021)](https://doi.org/10.1214/20-AOS1965).
 These intervals are calculated efficiently using importance sampling for
 the leave-out-one residuals. By default, the intervals will also reflect
 the relative uncertainty in the Bayesian model, using the
