@@ -4,7 +4,7 @@
 \name{conformalbayes-package}
 \alias{conformalbayes}
 \alias{conformalbayes-package}
-\title{conformalbayes: Jackknife+ Predictive Intervals for Bayesian Models}
+\title{conformalbayes: Jackknife(+) Predictive Intervals for Bayesian Models}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
