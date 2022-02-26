@@ -4,6 +4,7 @@ template:
   bootswatch: cosmo
   ganalytics: UA-79274202-5
 navbar:
+  bg: dark
   type: dark
 authors:
   Cory McCartan:
