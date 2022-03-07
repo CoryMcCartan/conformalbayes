@@ -109,23 +109,50 @@ American Statistical Association, 113</em>(523), 1094-1111.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rstanarm"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rstanarm"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="op">{</span></span>
 <span class="r-in">    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span></span>
 <span class="r-in">    <span class="co"># fit a simple linear regression</span></span>
 <span class="r-in">    <span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">disp</span> <span class="op">+</span> <span class="va">cyl</span>, data<span class="op">=</span><span class="va">mtcars</span>,</span>
-<span class="r-in">        chains<span class="op">=</span><span class="fl">1</span>, iter<span class="op">=</span><span class="fl">2000</span>,</span>
+<span class="r-in">        chains<span class="op">=</span><span class="fl">1</span>, iter<span class="op">=</span><span class="fl">1000</span>,</span>
 <span class="r-in">        control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adapt_delta<span class="op">=</span><span class="fl">0.999</span><span class="op">)</span>, refresh<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in">    <span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="loo_conformal.html">loo_conformal</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
 <span class="r-in">    <span class="co"># make predictive intervals</span></span>
-<span class="r-in">    <span class="va">predictive_interval</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function (object, ...) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     UseMethod("predictive_interval")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b877b71a18&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:rstantools&gt;</span>
+<span class="r-in">    <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html" class="external-link">predictive_interval</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            5%      95%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4           16.667700 27.31689</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag       16.997255 27.03680</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710          21.108888 31.79334</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive      14.761390 25.09792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout    9.632017 19.68625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Valiant             15.526111 25.92461</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Duster 360           9.872493 19.99205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 240D           20.620882 30.86736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 230            20.592596 30.84949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280            16.844915 27.24240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280C           16.429387 27.10436</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SE          10.659640 21.45813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SL          11.180052 21.90852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SLC         10.902567 21.64178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cadillac Fleetwood   7.354248 17.66190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lincoln Continental  7.373280 18.29625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Chrysler Imperial    7.760096 18.02178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat 128            21.507135 31.80113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Honda Civic         21.858498 31.76223</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corolla      21.881896 32.58834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corona       20.780409 31.14529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dodge Challenger    10.185459 20.52941</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AMC Javelin         10.802987 20.68960</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Camaro Z28           9.588553 20.05670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pontiac Firebird     8.185185 18.87413</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat X1-9           21.968140 32.12052</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Porsche 914-2       21.105725 31.03256</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lotus Europa        21.317121 31.47281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ford Pantera L       9.797254 20.02230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino        17.045255 27.50444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora       10.541244 20.56818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E          21.359283 31.51131</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
