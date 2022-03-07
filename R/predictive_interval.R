@@ -27,17 +27,17 @@
 #'   `probs=0.9` the columns will be `5%` and `95%`.
 #'
 #' @examples
-#' if (requireNamespace("rstanarm", quietly=TRUE)) {
+#' if (requireNamespace("rstanarm", quietly=TRUE)) suppressWarnings({
 #'     library(rstanarm)
 #'     # fit a simple linear regression
 #'     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
-#'         chains=1, iter=2000,
+#'         chains=1, iter=1000,
 #'         control=list(adapt_delta=0.999), refresh=0)
 #'
 #'     m = loo_conformal(m)
 #'     # make predictive intervals
-#'     predictive_interval
-#' }
+#'     predictive_interval(m)
+#' })
 #'
 #' @references
 #' Barber, R. F., Candes, E. J., Ramdas, A., & Tibshirani, R. J. (2021).

@@ -69,7 +69,7 @@ pulls the estimate of the residual standard deviation too high.
 
 While a posterior predictive check could uncover this discrepancy, leading us to
 fit a more flexible model, we can take another approach instead.
-The first step is to call `loo_conformal()`, which computes leave-out-one
+The first step is to call `loo_conformal()`, which computes leave-one-out
 cross-validation weights and residuals for use in generating more accurate
 predictive intervals.
 
@@ -79,7 +79,7 @@ print(m)
 ```
 
 The `loo_conformal()` returns the same fitted model, just with a thin wrapping
-layer that contains the leave-out-one cross-validation information.
+layer that contains the leave-one-out cross-validation information.
 You can see at the bottom of the output that `conformalbayes` estimates that
 correctly-sized predictive intervals are only 81% of the size of the model-based
 predictive intervals.
