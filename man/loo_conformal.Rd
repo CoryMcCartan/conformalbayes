@@ -40,15 +40,15 @@ Prepares for jackknife(+) conformal prediction by performing Pareto-smoothed
 importance sampling to yield leave-one-out residuals.
 }
 \examples{
-if (requireNamespace("rstanarm", quietly=TRUE)) {
+if (requireNamespace("rstanarm", quietly=TRUE)) suppressWarnings({
     library(rstanarm)
     # fit a simple linear regression
     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
-        chains=1, iter=2000,
+        chains=1, iter=1000,
         control=list(adapt_delta=0.999), refresh=0)
 
     loo_conformal(m)
-}
+})
 
 }
 \references{
