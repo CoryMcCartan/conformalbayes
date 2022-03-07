@@ -10,10 +10,19 @@
     <loc>https://corymccartan.github.io/conformalbayes/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://corymccartan.github.io/conformalbayes/articles/conformalbayes.html</loc>
+  </url>
+  <url>
+    <loc>https://corymccartan.github.io/conformalbayes/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://corymccartan.github.io/conformalbayes/authors.html</loc>
   </url>
   <url>
     <loc>https://corymccartan.github.io/conformalbayes/index.html</loc>
+  </url>
+  <url>
+    <loc>https://corymccartan.github.io/conformalbayes/news/index.html</loc>
   </url>
   <url>
     <loc>https://corymccartan.github.io/conformalbayes/reference/conformalbayes-package.html</loc>

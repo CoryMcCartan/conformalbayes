@@ -55,7 +55,13 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
+  <a class="nav-link" href="articles/conformalbayes.html">Get started</a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -85,7 +91,7 @@
 </div>
 <!-- badges: start -->
 
-<p><strong>conformalbayes</strong> provides functions to construct finite-sample calibrated predictive intervals for Bayesian models, following the approach in <a href="https://doi.org/10.1214/20-AOS1965" class="external-link">Barber et al. (2021)</a>. These intervals are calculated efficiently using importance sampling for the leave-out-one residuals. By default, the intervals will also reflect the relative uncertainty in the Bayesian model, using the locally-weighted conformal methods of <a href="https://doi.org/10.1080/01621459.2017.1307116" class="external-link">Lei et al. (2018)</a>.</p>
+<p><strong>conformalbayes</strong> provides functions to construct finite-sample calibrated predictive intervals for Bayesian models, following the approach in <a href="https://doi.org/10.1214/20-AOS1965" class="external-link">Barber et al. (2021)</a>. These intervals are calculated efficiently using importance sampling for the leave-one-out residuals. By default, the intervals will also reflect the relative uncertainty in the Bayesian model, using the locally-weighted conformal methods of <a href="https://doi.org/10.1080/01621459.2017.1307116" class="external-link">Lei et al. (2018)</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -97,6 +103,38 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CoryMcCartan/conformalbayes" class="external-link">conformalbayes</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Loblolly"</span><span class="op">)</span>
+
+<span class="va">fit_idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Loblolly</span><span class="op">)</span>, <span class="fl">50</span><span class="op">)</span>
+<span class="va">d_fit</span> <span class="op">=</span> <span class="va">Loblolly</span><span class="op">[</span><span class="va">fit_idx</span>, <span class="op">]</span>
+<span class="va">d_test</span> <span class="op">=</span> <span class="va">Loblolly</span><span class="op">[</span><span class="op">-</span><span class="va">fit_idx</span>, <span class="op">]</span>
+
+<span class="co"># fit a simple linear regression</span>
+<span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">height</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, data<span class="op">=</span><span class="va">d_fit</span>,
+    chains<span class="op">=</span><span class="fl">1</span>, control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adapt_delta<span class="op">=</span><span class="fl">0.999</span><span class="op">)</span>, refresh<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
+
+<span class="co"># prepare conformal predictions</span>
+<span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="reference/loo_conformal.html">loo_conformal</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
+
+<span class="co"># make predictive intervals</span>
+<span class="va">pred_ci</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html" class="external-link">predictive_interval</a></span><span class="op">(</span><span class="va">m</span>, newdata<span class="op">=</span><span class="va">d_test</span>, prob<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pred_ci</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;             5%       95%</span>
+<span class="co">#&gt; 1  -0.15888598  5.600095</span>
+<span class="co">#&gt; 29 25.43314599 30.988491</span>
+<span class="co">#&gt; 57 48.67648127 54.182655</span>
+<span class="co">#&gt; 2  -0.09561987  5.447242</span>
+<span class="co">#&gt; 30 25.42970114 30.938488</span>
+<span class="co">#&gt; 72 58.01173187 63.596592</span>
+
+<span class="co"># are we covering?</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">pred_ci</span><span class="op">[</span>, <span class="st">"5%"</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">d_test</span><span class="op">$</span><span class="va">height</span> <span class="op">&amp;</span>
+         <span class="va">d_test</span><span class="op">$</span><span class="va">height</span> <span class="op">&lt;=</span> <span class="va">pred_ci</span><span class="op">[</span>, <span class="st">"95%"</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.9117647</span></code></pre></div>
+<p>Read more on the <a href="https://corymccartan.github.io/conformalbayes/articles/conformalbayes.html">Getting Started page</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>

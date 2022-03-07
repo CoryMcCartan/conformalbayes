@@ -24,8 +24,14 @@ conformal methods of Lei et al. (2018)."><meta property="og:image" content="http
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/conformalbayes.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -58,13 +64,13 @@ conformal methods of Lei et al. (2018).</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for conformal</span>
-<span class="fu">predictive_interval</span><span class="op">(</span><span class="va">object</span>, probs <span class="op">=</span> <span class="fl">0.9</span>, plus <span class="op">=</span> <span class="cn">NULL</span>, local <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html" class="external-link">predictive_interval</a></span><span class="op">(</span><span class="va">object</span>, probs <span class="op">=</span> <span class="fl">0.9</span>, plus <span class="op">=</span> <span class="cn">NULL</span>, local <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
-<dd><p>A fitted model which hass been passed through <code><a href="loo_conformal.html">loo_conformal()</a></code></p></dd>
+<dd><p>A fitted model which has been passed through <code><a href="loo_conformal.html">loo_conformal()</a></code></p></dd>
 <dt>probs</dt>
 <dd><p>The coverage probabilities to calculate intervals for.
 Empirically, the coverage rate of the constructed intervals will generally
@@ -83,7 +89,7 @@ constant amount across all predictions, preserving the relative amount of
 uncertainty captured by the model. If <code>FALSE</code>, all predictive intervals
 will have (nearly) the same width.</p></dd>
 <dt>...</dt>
-<dd><p>Further arguments to the <code>posterior_predict()</code> method for <code>object</code>.</p></dd>
+<dd><p>Further arguments to the <code><a href="https://mc-stan.org/rstanarm/reference/posterior_predict.stanreg.html" class="external-link">posterior_predict()</a></code> method for <code>object</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -103,7 +109,24 @@ American Statistical Association, 113</em>(523), 1094-1111.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rstanarm"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span></span>
+<span class="r-in">    <span class="co"># fit a simple linear regression</span></span>
+<span class="r-in">    <span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">disp</span> <span class="op">+</span> <span class="va">cyl</span>, data<span class="op">=</span><span class="va">mtcars</span>,</span>
+<span class="r-in">        chains<span class="op">=</span><span class="fl">1</span>, iter<span class="op">=</span><span class="fl">2000</span>,</span>
+<span class="r-in">        control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adapt_delta<span class="op">=</span><span class="fl">0.999</span><span class="op">)</span>, refresh<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in">    <span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="loo_conformal.html">loo_conformal</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in">    <span class="co"># make predictive intervals</span></span>
+<span class="r-in">    <span class="va">predictive_interval</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some Pareto k diagnostic values are slightly high. See help('pareto-k-diagnostic') for details.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (object, ...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     UseMethod("predictive_interval")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5562ea322da0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:rstantools&gt;</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
