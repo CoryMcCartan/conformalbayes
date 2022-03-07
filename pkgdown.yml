@@ -3,7 +3,7 @@ pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   conformalbayes: conformalbayes.html
-last_built: 2022-03-07T06:11Z
+last_built: 2022-03-07T15:48Z
 urls:
   reference: https://corymccartan.github.io/conformalbayes/reference
   article: https://corymccartan.github.io/conformalbayes/articles
