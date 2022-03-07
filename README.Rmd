@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+set.seed(5118)
 ```
 
 # **conformalbayes** <a href="https://corymccartan.github.io/conformalbayes/"><img src="man/figures/logo.png" align="right" height="138" /></a>
@@ -40,6 +41,32 @@ devtools::install_github("CoryMcCartan/conformalbayes")
 
 ## Example
 
+```{r, message=F}
+library(rstanarm)
+library(conformalbayes)
+data("Loblolly")
+
+fit_idx = sample(nrow(Loblolly), 50)
+d_fit = Loblolly[fit_idx, ]
+d_test = Loblolly[-fit_idx, ]
+
+# fit a simple linear regression
+m = stan_glm(height ~ sqrt(age), data=d_fit,
+    chains=1, control=list(adapt_delta=0.999), refresh=0)
+
+# prepare conformal predictions
+m = loo_conformal(m)
+
+# make predictive intervals
+pred_ci = predictive_interval(m, newdata=d_test, prob=0.9)
+print(head(pred_ci))
+
+# are we covering?
+mean(pred_ci[, "5%"] <= d_test$height &
+         d_test$height <= pred_ci[, "95%"])
+```
+
+Read more on the [Getting Started page](https://corymccartan.github.io/conformalbayes/articles/conformalbayes.html).
 
 ## Citations
 

@@ -12,3 +12,6 @@ docs
 *.bak
 *.o
 *.so
+inst/doc
+/doc/
+/Meta/

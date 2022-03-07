@@ -5,8 +5,7 @@
 \alias{loo_conformal.default}
 \alias{loo_conformal.stanreg}
 \alias{loo_conformal.brmsfit}
-\alias{loo_conformal.array}
-\title{Enable jackknife+ predictive intervals for a fit model}
+\title{Enable leave-one-out conformal predictive intervals for a fit model}
 \usage{
 loo_conformal(fit, ...)
 
@@ -15,15 +14,6 @@ loo_conformal(fit, ...)
 \method{loo_conformal}{stanreg}(fit, est_fun = c("mean", "median"), ...)
 
 \method{loo_conformal}{brmsfit}(fit, est_fun = c("mean", "median"), ...)
-
-\method{loo_conformal}{array}(
-  fit,
-  log_lik,
-  truth,
-  chain = NULL,
-  est_fun = c("mean", "median"),
-  ...
-)
 }
 \arguments{
 \item{fit}{Model fit; an object with \code{posterior_predict()} and \code{log_lik()}
@@ -39,9 +29,6 @@ posterior draws. Should be provided if multiple chains are used.}
 
 \item{est_fun}{Whether to use the posterior \code{mean} (the default) or \code{median}
 as a point estimate.}
-
-\item{log_lik}{If \code{fit} is an array, then \code{log_lik} should be an array of
-matching dimension giving the pointwise log-likelihood.}
 }
 \value{
 A modified \code{fit} object with an additional class \code{conformal}.
@@ -49,10 +36,19 @@ Calling \code{\link[=predictive_interval]{predictive_interval()}} on this new ob
 intervals.
 }
 \description{
-Prepares for jackknife+ conformal prediction by performing Pareto-smoothed
+Prepares for jackknife(+) conformal prediction by performing Pareto-smoothed
 importance sampling to yield leave-one-out residuals.
 }
 \examples{
+if (requireNamespace("rstanarm", quietly=TRUE)) {
+    library(rstanarm)
+    # fit a simple linear regression
+    m = stan_glm(mpg ~ disp + cyl, data=mtcars,
+        chains=1, iter=2000,
+        control=list(adapt_delta=0.999), refresh=0)
+
+    loo_conformal(m)
+}
 
 }
 \references{

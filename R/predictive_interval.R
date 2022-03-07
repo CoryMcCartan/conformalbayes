@@ -5,7 +5,7 @@
 #' relative uncertainty in the Bayesian model, using the locally-weighted
 #' conformal methods of Lei et al. (2018).
 #'
-#' @param object A fitted model which hass been passed through [loo_conformal()]
+#' @param object A fitted model which has been passed through [loo_conformal()]
 #' @param probs The coverage probabilities to calculate intervals for.
 #'   Empirically, the coverage rate of the constructed intervals will generally
 #'   match these probabilities, but the theoretical guarantee for a probability
@@ -27,6 +27,17 @@
 #'   `probs=0.9` the columns will be `5%` and `95%`.
 #'
 #' @examples
+#' if (requireNamespace("rstanarm", quietly=TRUE)) {
+#'     library(rstanarm)
+#'     # fit a simple linear regression
+#'     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
+#'         chains=1, iter=2000,
+#'         control=list(adapt_delta=0.999), refresh=0)
+#'
+#'     m = loo_conformal(m)
+#'     # make predictive intervals
+#'     predictive_interval
+#' }
 #'
 #' @references
 #' Barber, R. F., Candes, E. J., Ramdas, A., & Tibshirani, R. J. (2021).
@@ -60,7 +71,7 @@ predictive_interval.conformal = function(object, probs=0.9, plus=NULL, local=TRU
     idx_hi = n_prob + seq_len(n_prob)
 
     # local sd estimates
-    if (local) {
+    if (isTRUE(local)) {
         loc_sd = matrixStats::colSds(preds)
     } else {
         loc_sd = rep(1, N_new)

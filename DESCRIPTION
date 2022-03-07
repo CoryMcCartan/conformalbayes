@@ -19,7 +19,10 @@ Imports:
 Suggests: 
     rstanarm,
     brms,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    ggplot2,
+    knitr,
+    rmarkdown
 License: MIT + file LICENSE
 URL: https://github.com/CoryMcCartan/conformalbayes,
     https://corymccartan.github.io/conformalbayes/
@@ -28,3 +31,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Config/testthat/edition: 3
+VignetteBuilder: knitr

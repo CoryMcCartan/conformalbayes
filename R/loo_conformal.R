@@ -1,6 +1,6 @@
-#' Enable jackknife+ predictive intervals for a fit model
+#' Enable leave-one-out conformal predictive intervals for a fit model
 #'
-#' Prepares for jackknife+ conformal prediction by performing Pareto-smoothed
+#' Prepares for jackknife(+) conformal prediction by performing Pareto-smoothed
 #' importance sampling to yield leave-one-out residuals.
 #'
 #' @param fit Model fit; an object with `posterior_predict()` and `log_lik()`
@@ -9,8 +9,6 @@
 #'   models.
 #' @param est_fun Whether to use the posterior `mean` (the default) or `median`
 #'   as a point estimate.
-#' @param log_lik If `fit` is an array, then `log_lik` should be an array of
-#'   matching dimension giving the pointwise log-likelihood.
 #' @param chain An integer vector identifying the chain numbers for the
 #'   posterior draws. Should be provided if multiple chains are used.
 #' @param ... Ignored.
@@ -20,6 +18,15 @@
 #'   intervals.
 #'
 #' @examples
+#' if (requireNamespace("rstanarm", quietly=TRUE)) {
+#'     library(rstanarm)
+#'     # fit a simple linear regression
+#'     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
+#'         chains=1, iter=2000,
+#'         control=list(adapt_delta=0.999), refresh=0)
+#'
+#'     loo_conformal(m)
+#' }
 #'
 #' @references
 #' Vehtari, A., Simpson, D., Gelman, A., Yao, Y., & Gabry, J. (2015).
@@ -36,11 +43,11 @@ loo_conformal = function(fit, ...) {
 loo_conformal.default = function(fit, truth, chain=NULL,
                                  est_fun=c("mean", "median"), ...) {
     if (!has_generic(fit, "posterior_predict"))
-        cli_abort("{.arg fit} must have a {.fn posterior_predict} method.")
+        cli_abort("{.arg fit} should have a {.fn posterior_predict} method.")
     preds = rstantools::posterior_predict(fit)
 
     if (!has_generic(fit, "log_lik"))
-        cli_abort("{.arg fit} must have a {.fn log_lik} method.")
+        cli_abort("{.arg fit} should have a {.fn log_lik} method.")
     log_lik = rstantools::log_lik(fit)
 
     if (missing(truth)) {
@@ -49,7 +56,8 @@ loo_conformal.default = function(fit, truth, chain=NULL,
         } else if (has_generic(fit, "fitted") && has_generic(fit, "residuals")) {
             truth = fitted(fit) + residuals(fit)
         } else {
-            cli_abort("{.arg fit} must have true values stored under {.arg y},
+            cli_abort("If you don't provide {.arg truth}, then
+                      {.arg fit} must have true values stored under {.arg y},
                       or must have {.fn fitted} and {.fn residuals} methods.")
         }
     }
@@ -95,40 +103,6 @@ loo_conformal.brmsfit = function(fit, est_fun=c("mean", "median"), ...) {
                    est_fun=match.arg(est_fun))
 }
 
-#' @rdname loo_conformal
-#' @export
-loo_conformal.array = function(fit, log_lik, truth, chain=NULL,
-                               est_fun=c("mean", "median"), ...) {
-    dims = dim(fit)
-
-    if (length(dims) == 2) {
-        if (is.null(chain))
-            chain = rep(1L, dims[1])
-    } else if (length(dims) == 3) {
-        n_chains = dims[2]
-        extractor = function(j, x) x[, j, ]
-
-        fit = do.call(rbind, lapply(seq_len(n_chains), extractor, x=fit))
-        log_lik = do.call(rbind, lapply(seq_len(n_chains), extractor, x=log_lik))
-
-        if (!is.null(chain))
-            cli_warn("{.arg chain} is ignored if the input array has more than two dimensions.")
-        chain = rep(seq_len(n_chains), each = dims[1])
-    } else {
-        cli_abort("{.arg fit} must be a 2- or 3-dimensional array.")
-    }
-
-    if (any(dim(fit) != dim(log_lik)))
-        cli_abort("{.arg fit} and {.arg log_lik} must have matching dimensions.")
-    if (ncol(fit) != length(truth))
-        cli_abort("{.arg truth} doesn't have the same number of data points as
-                  {.arg fit} and {.arg log_lik}.")
-
-
-    make_conformal(list(),
-                   truth=truth, preds=fit, log_lik=log_lik, chain=chain,
-                   est_fun=match.arg(est_fun))
-}
 
 # Wrap `fit` so that it can do conformal intervals
 make_conformal = function(fit, truth, preds, log_lik, chain, est_fun="mean") {

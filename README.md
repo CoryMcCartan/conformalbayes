@@ -32,6 +32,42 @@ devtools::install_github("CoryMcCartan/conformalbayes")
 
 ## Example
 
+``` r
+library(rstanarm)
+library(conformalbayes)
+data("Loblolly")
+
+fit_idx = sample(nrow(Loblolly), 50)
+d_fit = Loblolly[fit_idx, ]
+d_test = Loblolly[-fit_idx, ]
+
+# fit a simple linear regression
+m = stan_glm(height ~ sqrt(age), data=d_fit,
+    chains=1, control=list(adapt_delta=0.999), refresh=0)
+
+# prepare conformal predictions
+m = loo_conformal(m)
+
+# make predictive intervals
+pred_ci = predictive_interval(m, newdata=d_test, prob=0.9)
+print(head(pred_ci))
+#>             5%       95%
+#> 1  -0.15888598  5.600095
+#> 29 25.43314599 30.988491
+#> 57 48.67648127 54.182655
+#> 2  -0.09561987  5.447242
+#> 30 25.42970114 30.938488
+#> 72 58.01173187 63.596592
+
+# are we covering?
+mean(pred_ci[, "5%"] <= d_test$height &
+         d_test$height <= pred_ci[, "95%"])
+#> [1] 0.9117647
+```
+
+Read more on the [Getting Started
+page](https://corymccartan.github.io/conformalbayes/articles/conformalbayes.html).
+
 ## Citations
 
 Barber, R. F., Candes, E. J., Ramdas, A., & Tibshirani, R. J. (2021).
