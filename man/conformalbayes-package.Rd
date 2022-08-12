@@ -6,9 +6,9 @@
 \alias{conformalbayes-package}
 \title{conformalbayes: Jackknife(+) Predictive Intervals for Bayesian Models}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides functions to construct finite-sample calibrated predictive intervals for Bayesian models, following the approach in Barber et al. (2021) <doi:10.1214/20-AOS1965>. These intervals are calculated efficiently using importance sampling for the leave-one-out residuals. By default, the intervals will also reflect the relative uncertainty in the Bayesian model, using the locally-weighted conformal methods of Lei et al. (2018) <doi:10.1080/01621459.2017.1307116>.
+Provides functions to construct finite-sample calibrated predictive intervals for Bayesian models, following the approach in Barber et al. (2021) \doi{10.1214/20-AOS1965}. These intervals are calculated efficiently using importance sampling for the leave-one-out residuals. By default, the intervals will also reflect the relative uncertainty in the Bayesian model, using the locally-weighted conformal methods of Lei et al. (2018) \doi{10.1080/01621459.2017.1307116}.
 }
 \seealso{
 Useful links:

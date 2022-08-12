@@ -11,9 +11,10 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* This is a new release.
+* This release fixes CRAN notes caused by documentation incompatible with HTML5
+standards.
 
 * Examples should take less than five seconds to run but may occasionally exceed
 that time depending on the computing power of the environment in which they are
