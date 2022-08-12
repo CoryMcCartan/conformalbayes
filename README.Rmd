@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 set.seed(5118)
 ```
 
-# **conformalbayes** <a href="https://corymccartan.github.io/conformalbayes/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# **conformalbayes** <a href="https://corymccartan.com/conformalbayes/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/conformalbayes)](https://CRAN.R-project.org/package=conformalbayes)
@@ -67,7 +67,7 @@ mean(pred_ci[, "5%"] <= d_test$height &
          d_test$height <= pred_ci[, "95%"])
 ```
 
-Read more on the [Getting Started page](https://corymccartan.github.io/conformalbayes/articles/conformalbayes.html).
+Read more on the [Getting Started page](https://corymccartan.com/conformalbayes/articles/conformalbayes.html).
 
 ## Citations
 
