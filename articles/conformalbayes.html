@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to conformalbayes">
 <meta property="og:description" content="conformalbayes">
@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">conformalbayes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@
 
 
 <script src="conformalbayes_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Introduction to conformalbayes</h1>
             
       
@@ -86,81 +86,81 @@
 <p>The <strong>conformalbayes</strong> package provides functions to construct finite-sample calibrated predictive intervals for Bayesian models, following the approach in <a href="https://doi.org/10.1214/20-AOS1965" class="external-link">Barber et al. (2021)</a>. The basic idea is a natural one: use cross-validated residuals to estimate how large predictive intervals need to be, on average.</p>
 <p>Suppose we have a heavy-tailed dataset.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CoryMcCartan/conformalbayes" class="external-link">conformalbayes</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-
-<span class="va">sim_data</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">=</span><span class="fl">50</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
-    <span class="va">y</span> <span class="op">=</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">rt</a></span><span class="op">(</span><span class="va">n</span>, df<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">d_fit</span> <span class="op">=</span> <span class="fu">sim_data</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d_fit</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="va">lm</span>, formula<span class="op">=</span><span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CoryMcCartan/conformalbayes" class="external-link">conformalbayes</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_data</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">=</span><span class="fl">50</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="va">y</span> <span class="op">=</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">rt</a></span><span class="op">(</span><span class="va">n</span>, df<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">d_fit</span> <span class="op">=</span> <span class="fu">sim_data</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d_fit</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="va">lm</span>, formula<span class="op">=</span><span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conformalbayes_files/figure-html/data-1.png" width="700"></p>
 <p>We can fit a linear regression to the data, but it won’t give us accurate uncertainty quantification in our predictions.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># fit the model</span>
-<span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data<span class="op">=</span><span class="va">d_fit</span>, chains<span class="op">=</span><span class="fl">1</span>, refresh<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
-
-<span class="va">d_test</span> <span class="op">=</span> <span class="fu">sim_data</span><span class="op">(</span><span class="fl">2000</span><span class="op">)</span>
-
-<span class="va">interv_model</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html" class="external-link">predictive_interval</a></span><span class="op">(</span><span class="va">m</span>, newdata<span class="op">=</span><span class="va">d_test</span>, prob<span class="op">=</span><span class="fl">0.50</span><span class="op">)</span>
-
-<span class="co"># are the points covered</span>
-<span class="va">covered_model</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="va">interv_model</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">y</span> <span class="op">&amp;</span> <span class="va">y</span> <span class="op">&lt;=</span> <span class="va">interv_model</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, color<span class="op">=</span><span class="va">covered_model</span>, group<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">interv_model</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,
-                       ymax<span class="op">=</span><span class="va">interv_model</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span>, alpha<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"Covered?"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="va">lm</span>, formula<span class="op">=</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># fit the model</span></span>
+<span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data<span class="op">=</span><span class="va">d_fit</span>, chains<span class="op">=</span><span class="fl">1</span>, refresh<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">d_test</span> <span class="op">=</span> <span class="fu">sim_data</span><span class="op">(</span><span class="fl">2000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">interv_model</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstantools/reference/predictive_interval.html" class="external-link">predictive_interval</a></span><span class="op">(</span><span class="va">m</span>, newdata<span class="op">=</span><span class="va">d_test</span>, prob<span class="op">=</span><span class="fl">0.50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># are the points covered</span></span>
+<span><span class="va">covered_model</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="va">interv_model</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">y</span> <span class="op">&amp;</span> <span class="va">y</span> <span class="op">&lt;=</span> <span class="va">interv_model</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, color<span class="op">=</span><span class="va">covered_model</span>, group<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">interv_model</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>                       ymax<span class="op">=</span><span class="va">interv_model</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span>, alpha<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"Covered?"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="va">lm</span>, formula<span class="op">=</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conformalbayes_files/figure-html/cover-model-1.png" width="700"></p>
 <p>In fact, the 50% intervals over-cover, with a coverage rate of 69.8%, since the fat tails of the error terms pulls the estimate of the residual standard deviation too high.</p>
 <p>While a posterior predictive check could uncover this discrepancy, leading us to fit a more flexible model, we can take another approach instead. The first step is to call <code><a href="../reference/loo_conformal.html">loo_conformal()</a></code>, which computes leave-one-out cross-validation weights and residuals for use in generating more accurate predictive intervals.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="../reference/loo_conformal.html">loo_conformal</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-<span class="co">#&gt; stan_glm</span>
-<span class="co">#&gt;  family:       gaussian [identity]</span>
-<span class="co">#&gt;  formula:      y ~ x</span>
-<span class="co">#&gt;  observations: 50</span>
-<span class="co">#&gt;  predictors:   2</span>
-<span class="co">#&gt; ------</span>
-<span class="co">#&gt;             Median MAD_SD</span>
-<span class="co">#&gt; (Intercept)  2.9    0.3  </span>
-<span class="co">#&gt; x           -1.9    0.3  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Auxiliary parameter(s):</span>
-<span class="co">#&gt;       Median MAD_SD</span>
-<span class="co">#&gt; sigma 2.1    0.2   </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ------</span>
-<span class="co">#&gt; * For help interpreting the printed output see ?print.stanreg</span>
-<span class="co">#&gt; * For info on the priors used see ?prior_summary.stanreg</span>
-<span class="co">#&gt; (<span style="color: #0000BB;">conformalbayes</span> enabled, with estimated CI inflation factor 0.81)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="../reference/loo_conformal.html">loo_conformal</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span><span class="co">#&gt; stan_glm</span></span>
+<span><span class="co">#&gt;  family:       gaussian [identity]</span></span>
+<span><span class="co">#&gt;  formula:      y ~ x</span></span>
+<span><span class="co">#&gt;  observations: 50</span></span>
+<span><span class="co">#&gt;  predictors:   2</span></span>
+<span><span class="co">#&gt; ------</span></span>
+<span><span class="co">#&gt;             Median MAD_SD</span></span>
+<span><span class="co">#&gt; (Intercept)  2.9    0.3  </span></span>
+<span><span class="co">#&gt; x           -1.9    0.3  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Auxiliary parameter(s):</span></span>
+<span><span class="co">#&gt;       Median MAD_SD</span></span>
+<span><span class="co">#&gt; sigma 2.1    0.2   </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ------</span></span>
+<span><span class="co">#&gt; * For help interpreting the printed output see ?print.stanreg</span></span>
+<span><span class="co">#&gt; * For info on the priors used see ?prior_summary.stanreg</span></span>
+<span><span class="co">#&gt; (<span style="color: #0000BB;">conformalbayes</span> enabled, with estimated CI inflation factor 0.81)</span></span></code></pre></div>
 <p>The <code><a href="../reference/loo_conformal.html">loo_conformal()</a></code> returns the same fitted model, just with a thin wrapping layer that contains the leave-one-out cross-validation information. You can see at the bottom of the output that <code>conformalbayes</code> estimates that correctly-sized predictive intervals are only 81% of the size of the model-based predictive intervals.</p>
-<p>To actually generate predictive intervals, we use <code><a href="https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html" class="external-link">predictive_interval()</a></code>, just like normal:</p>
+<p>To actually generate predictive intervals, we use <code><a href="https://mc-stan.org/rstantools/reference/predictive_interval.html" class="external-link">predictive_interval()</a></code>, just like normal:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">interv_jack</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html" class="external-link">predictive_interval</a></span><span class="op">(</span><span class="va">m</span>, newdata<span class="op">=</span><span class="va">d_test</span>, prob<span class="op">=</span><span class="fl">0.50</span><span class="op">)</span>
-
-<span class="co"># are the points covered</span>
-<span class="va">covered_jack</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">y</span> <span class="op">&amp;</span> <span class="va">y</span> <span class="op">&lt;=</span> <span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, color<span class="op">=</span><span class="va">covered_jack</span>, group<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,
-                       ymax<span class="op">=</span><span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span>, alpha<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"Covered?"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="va">lm</span>, formula<span class="op">=</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">interv_jack</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstantools/reference/predictive_interval.html" class="external-link">predictive_interval</a></span><span class="op">(</span><span class="va">m</span>, newdata<span class="op">=</span><span class="va">d_test</span>, prob<span class="op">=</span><span class="fl">0.50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># are the points covered</span></span>
+<span><span class="va">covered_jack</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;=</span> <span class="va">y</span> <span class="op">&amp;</span> <span class="va">y</span> <span class="op">&lt;=</span> <span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d_test</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, color<span class="op">=</span><span class="va">covered_jack</span>, group<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>                       ymax<span class="op">=</span><span class="va">interv_jack</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span>, alpha<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"Covered?"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="va">lm</span>, formula<span class="op">=</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="conformalbayes_files/figure-html/cover-jack-1.png" width="700"></p>
 <p>Indeed, the coverage rate for these jackknife conformal intervals is 49.2%, as we would expect.</p>
-<p>The conformal version of <code><a href="https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html" class="external-link">predictive_interval()</a></code> does contain two extra options: <code>plus</code> and <code>local</code>. When <code>plus=TRUE</code>, the function will generate <code>jackknife+</code> intervals, which have a theoretical coverage guarantee. These can be computationally intensive, so by default they are only generated when the number of fit and prediction data points is less than 500. In practice, non-<code>plus</code> jackknife intervals generally perform just as well as <code>jackknife+</code> intervals. When <code>local=TRUE</code> (the default), the function will generate intervals whose widths are proportional to the underlying model-based predictive intervals. So if your model accounts for heteroskedasticity, or produces narrow intervals in areas of covariate space with many observations (like a linear model), <code>local=TRUE</code> will produce more sensible intervals. The overall conformal performance guarantees are unaffected.</p>
+<p>The conformal version of <code><a href="https://mc-stan.org/rstantools/reference/predictive_interval.html" class="external-link">predictive_interval()</a></code> does contain two extra options: <code>plus</code> and <code>local</code>. When <code>plus=TRUE</code>, the function will generate <code>jackknife+</code> intervals, which have a theoretical coverage guarantee. These can be computationally intensive, so by default they are only generated when the number of fit and prediction data points is less than 500. In practice, non-<code>plus</code> jackknife intervals generally perform just as well as <code>jackknife+</code> intervals. When <code>local=TRUE</code> (the default), the function will generate intervals whose widths are proportional to the underlying model-based predictive intervals. So if your model accounts for heteroskedasticity, or produces narrow intervals in areas of covariate space with many observations (like a linear model), <code>local=TRUE</code> will produce more sensible intervals. The overall conformal performance guarantees are unaffected.</p>
 <div class="section level2">
 <h2 id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
 </h2>
@@ -179,7 +179,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
