@@ -12,8 +12,9 @@
 
 0 errors | 0 warnings | 0 notes
 
-* This release fixes CRAN notes caused by documentation incompatible with HTML5
-standards.
+* This is a resubmission.  It fixes a URL in the DESCRIPTION which had been
+redirected. This release also fixes CRAN notes caused by documentation
+incompatible with HTML5 standards.
 
 * Examples should take less than five seconds to run but may occasionally exceed
 that time depending on the computing power of the environment in which they are

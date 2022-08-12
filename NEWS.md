@@ -1,5 +1,9 @@
 # conformalbayes 0.1.1
 
+* Update URLs
+
+# conformalbayes 0.1.1
+
 * Fix documentation
 
 # conformalbayes 0.1.0

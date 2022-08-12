@@ -14,7 +14,7 @@ Provides functions to construct finite-sample calibrated predictive intervals fo
 Useful links:
 \itemize{
   \item \url{https://github.com/CoryMcCartan/conformalbayes}
-  \item \url{https://corymccartan.github.io/conformalbayes/}
+  \item \url{https://corymccartan.com/conformalbayes/}
   \item Report bugs at \url{https://github.com/CoryMcCartan/conformalbayes/issues}
 }
 
