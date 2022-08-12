@@ -1,3 +1,7 @@
+# conformalbayes 0.1.1
+
+* Fix documentation
+
 # conformalbayes 0.1.0
 
 * Basic jackknife+ predictions with optional local weighting
