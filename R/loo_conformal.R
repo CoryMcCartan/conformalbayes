@@ -7,6 +7,8 @@
 #'   methods. Can also be an `array` of posterior predictions.
 #' @param truth True values to predict. Not required for `rstanarm` or `brms`
 #'   models.
+#' @param trans,inv_trans A pair of functions to transform the predictions
+#'   before performing conformal inference.
 #' @param est_fun Whether to use the posterior `mean` (the default) or `median`
 #'   as a point estimate.
 #' @param chain An integer vector identifying the chain numbers for the
@@ -41,7 +43,9 @@ loo_conformal = function(fit, ...) {
 #' @rdname loo_conformal
 #' @export
 loo_conformal.default = function(fit, truth, chain=NULL,
+                                 trans=\(x) x, inv_trans=\(x) x,
                                  est_fun=c("mean", "median"), ...) {
+    class(fit) = setdiff(class(fit), "conformal")
     if (!has_generic(fit, "posterior_predict"))
         cli_abort("{.arg fit} should have a {.fn posterior_predict} method.")
     preds = rstantools::posterior_predict(fit)
@@ -68,27 +72,35 @@ loo_conformal.default = function(fit, truth, chain=NULL,
         chain = rep(1L, dim(preds)[1])
 
     make_conformal(fit,
-                   truth=truth,
-                   preds=preds,
-                   log_lik=log_lik,
-                   chain=chain,
-                   est_fun=match.arg(est_fun))
+                   truth = truth,
+                   preds = preds,
+                   log_lik = log_lik,
+                   chain = chain,
+                   trans = trans,
+                   inv_trans = inv_trans,
+                   est_fun = match.arg(est_fun))
 }
 
 #' @rdname loo_conformal
 #' @export
-loo_conformal.stanreg = function(fit, est_fun=c("mean", "median"), ...) {
+loo_conformal.stanreg = function(fit, trans=\(x) x, inv_trans=\(x) x,
+                                 est_fun=c("mean", "median"), ...) {
+    class(fit) = setdiff(class(fit), "conformal")
     make_conformal(fit,
-                   truth=fit$fitted.values + fit$residuals,
-                   preds=rstantools::posterior_predict(fit),
-                   log_lik=rstantools::log_lik(fit),
-                   chain=get_chain_id.stanreg(fit),
-                   est_fun=match.arg(est_fun))
+                   truth = fit$fitted.values + fit$residuals,
+                   preds = rstantools::posterior_predict(fit),
+                   log_lik = rstantools::log_lik(fit),
+                   chain = get_chain_id.stanreg(fit),
+                   trans = trans,
+                   inv_trans = inv_trans,
+                   est_fun = match.arg(est_fun))
 }
 
 #' @rdname loo_conformal
 #' @export
-loo_conformal.brmsfit = function(fit, est_fun=c("mean", "median"), ...) {
+loo_conformal.brmsfit = function(fit, trans=\(x) x, inv_trans=\(x) x,
+                                 est_fun=c("mean", "median"), ...) {
+    class(fit) = setdiff(class(fit), "conformal")
     if (requireNamespace("brms", quietly=TRUE)) {
         truth = brms::get_y(fit)
     } else {
@@ -96,18 +108,24 @@ loo_conformal.brmsfit = function(fit, est_fun=c("mean", "median"), ...) {
     }
 
     make_conformal(fit,
-                   truth=truth,
-                   preds=rstantools::posterior_predict(fit),
-                   log_lik=rstantools::log_lik(fit),
-                   chain=get_chain_id.brmsfit(fit),
-                   est_fun=match.arg(est_fun))
+                   truth = truth,
+                   preds = rstantools::posterior_predict(fit),
+                   log_lik = rstantools::log_lik(fit),
+                   chain = get_chain_id.brmsfit(fit),
+                   trans = trans,
+                   inv_trans = inv_trans,
+                   est_fun = match.arg(est_fun))
 }
 
 
 # Wrap `fit` so that it can do conformal intervals
-make_conformal = function(fit, truth, preds, log_lik, chain, est_fun="mean") {
+make_conformal = function(fit, truth, preds, log_lik, chain,
+                          trans=\(x) x, inv_trans=\(x) x, est_fun="mean") {
     N = length(truth)
     iter = nrow(log_lik)
+
+    truth = trans(truth)
+    preds = trans(preds)
 
     # get the importance sampling weights
     r_eff = loo::relative_eff(exp(log_lik), chain_id=chain)
@@ -132,7 +150,10 @@ make_conformal = function(fit, truth, preds, log_lik, chain, est_fun="mean") {
         ests = loo_ests,
         resid = loo_resid,
         sd = loo_sd,
-        scale_infl = mean(loo_resid) / mean(abs(pred_diff))
+        scale_infl = mean(loo_resid) / mean(abs(pred_diff)),
+        k_table = loo::pareto_k_table(psis_obj),
+        trans = trans,
+        inv_trans = inv_trans
     )
 
     attr(fit, ".conformal") = out
@@ -145,5 +166,7 @@ make_conformal = function(fit, truth, preds, log_lik, chain, est_fun="mean") {
 print.conformal = function(x, ...) {
     NextMethod()
     cli::cli_text("({.pkg conformalbayes} enabled, with estimated CI inflation
-                  factor {round(attr(x, '.conformal')$scale_infl, 2)})")
+                  factor {round(attr(x, '.conformal')$scale_infl, 2)} and
+                  transformation pair {deparse1(attr(x, '.conformal')$trans)} and
+                  {deparse1(attr(x, '.conformal')$inv_trans)})")
 }

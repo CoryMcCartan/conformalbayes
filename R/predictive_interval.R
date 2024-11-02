@@ -54,7 +54,8 @@ predictive_interval.conformal = function(object, probs=0.9, plus=NULL, local=TRU
     if (any(probs <= 0 | probs >= 1))
         cli_abort("{.arg prob} must greater than 0 and less than 1.")
 
-    preds = rstantools::posterior_predict(object, ...)
+    l = attr(object, ".conformal")
+    preds = l$trans(rstantools::posterior_predict(object, ...))
     N_new = ncol(preds)
 
     n_prob = length(probs)
@@ -64,7 +65,6 @@ predictive_interval.conformal = function(object, probs=0.9, plus=NULL, local=TRU
     colnames(out) = paste0(100*c(rev(alphas), 1 - alphas), "%")
     rownames(out) = colnames(preds)
 
-    l = attr(object, ".conformal")
     N = ncol(l$w)
     est_fun = get_est_fun(l$est_fun)
     idx_lo = seq_len(n_prob)
@@ -103,5 +103,5 @@ predictive_interval.conformal = function(object, probs=0.9, plus=NULL, local=TRU
         }
     }
 
-    out
+    l$inv_trans(out)
 }

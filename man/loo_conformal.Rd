@@ -9,11 +9,31 @@
 \usage{
 loo_conformal(fit, ...)
 
-\method{loo_conformal}{default}(fit, truth, chain = NULL, est_fun = c("mean", "median"), ...)
+\method{loo_conformal}{default}(
+  fit,
+  truth,
+  chain = NULL,
+  trans = function(x) x,
+  inv_trans = function(x) x,
+  est_fun = c("mean", "median"),
+  ...
+)
 
-\method{loo_conformal}{stanreg}(fit, est_fun = c("mean", "median"), ...)
+\method{loo_conformal}{stanreg}(
+  fit,
+  trans = function(x) x,
+  inv_trans = function(x) x,
+  est_fun = c("mean", "median"),
+  ...
+)
 
-\method{loo_conformal}{brmsfit}(fit, est_fun = c("mean", "median"), ...)
+\method{loo_conformal}{brmsfit}(
+  fit,
+  trans = function(x) x,
+  inv_trans = function(x) x,
+  est_fun = c("mean", "median"),
+  ...
+)
 }
 \arguments{
 \item{fit}{Model fit; an object with \code{posterior_predict()} and \code{log_lik()}
@@ -26,6 +46,9 @@ models.}
 
 \item{chain}{An integer vector identifying the chain numbers for the
 posterior draws. Should be provided if multiple chains are used.}
+
+\item{trans, inv_trans}{A pair of functions to transform the predictions
+before performing conformal inference.}
 
 \item{est_fun}{Whether to use the posterior \code{mean} (the default) or \code{median}
 as a point estimate.}
