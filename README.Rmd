@@ -19,7 +19,7 @@ set.seed(5118)
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/conformalbayes)](https://CRAN.R-project.org/package=conformalbayes)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![R-CMD-check](https://github.com/CoryMcCartan/conformalbayes/workflows/R-CMD-check/badge.svg)](https://github.com/CoryMcCartan/conformalbayes/actions)
+[![R-CMD-check](https://github.com/CoryMcCartan/conformalbayes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CoryMcCartan/conformalbayes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **conformalbayes** provides functions to construct finite-sample calibrated

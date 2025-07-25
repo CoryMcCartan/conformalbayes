@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version/conformalbayes)](https://CRAN.R-pro
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![R-CMD-check](https://github.com/CoryMcCartan/conformalbayes/workflows/R-CMD-check/badge.svg)](https://github.com/CoryMcCartan/conformalbayes/actions)
+[![R-CMD-check](https://github.com/CoryMcCartan/conformalbayes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CoryMcCartan/conformalbayes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **conformalbayes** provides functions to construct finite-sample
@@ -54,12 +54,12 @@ m = loo_conformal(m)
 pred_ci = predictive_interval(m, newdata=d_test, prob=0.9)
 print(head(pred_ci))
 #>             5%       95%
-#> 1  -0.15888597  5.600095
+#> 1  -0.15888598  5.600095
 #> 29 25.43314599 30.988491
 #> 57 48.67648127 54.182655
 #> 2  -0.09561987  5.447242
 #> 30 25.42970114 30.938488
-#> 72 58.01173186 63.596592
+#> 72 58.01173187 63.596592
 
 # are we covering?
 mean(pred_ci[, "5%"] <= d_test$height &
