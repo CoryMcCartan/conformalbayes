@@ -20,7 +20,8 @@
 #'   constant amount across all predictions, preserving the relative amount of
 #'   uncertainty captured by the model. If `FALSE`, all predictive intervals
 #'   will have (nearly) the same width.
-#' @param ... Further arguments to the [posterior_predict()] method for `object`.
+#' @param ... Further arguments to the [posterior_predict()][rstantools::posterior_predict]
+#'   method for `object`.
 #'
 #' @returns A matrix with the number of rows matching the number of predictions.
 #'   Columns will be labeled with a percentile corresponding to `probs`; e.g. if
@@ -31,7 +32,7 @@
 #'     library(rstanarm)
 #'     # fit a simple linear regression
 #'     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
-#'         chains=1, iter=1000,
+#'         chains=1, iter=500,
 #'         control=list(adapt_delta=0.999), refresh=0)
 #'
 #'     m = loo_conformal(m)

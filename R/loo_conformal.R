@@ -16,15 +16,15 @@
 #' @param ... Ignored.
 #'
 #' @returns A modified `fit` object with an additional class `conformal`.
-#'   Calling [predictive_interval()] on this new object will yield conformal
-#'   intervals.
+#'   Calling [predictive_interval()][rstantools::predictive_interval] on this 
+#'   new object will yield conformal intervals.
 #'
 #' @examples
 #' if (requireNamespace("rstanarm", quietly=TRUE)) suppressWarnings({
 #'     library(rstanarm)
 #'     # fit a simple linear regression
 #'     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
-#'         chains=1, iter=1000,
+#'         chains=1, iter=500,
 #'         control=list(adapt_delta=0.999), refresh=0)
 #'
 #'     loo_conformal(m)
@@ -43,7 +43,7 @@ loo_conformal = function(fit, ...) {
 #' @rdname loo_conformal
 #' @export
 loo_conformal.default = function(fit, truth, chain=NULL,
-                                 trans=\(x) x, inv_trans=\(x) x,
+                                 trans=function(x) x, inv_trans=function(x) x,
                                  est_fun=c("mean", "median"), ...) {
     class(fit) = setdiff(class(fit), "conformal")
     if (!has_generic(fit, "posterior_predict"))
@@ -83,7 +83,7 @@ loo_conformal.default = function(fit, truth, chain=NULL,
 
 #' @rdname loo_conformal
 #' @export
-loo_conformal.stanreg = function(fit, trans=\(x) x, inv_trans=\(x) x,
+loo_conformal.stanreg = function(fit, trans=function(x) x, inv_trans=function(x) x,
                                  est_fun=c("mean", "median"), ...) {
     class(fit) = setdiff(class(fit), "conformal")
     make_conformal(fit,
@@ -98,7 +98,7 @@ loo_conformal.stanreg = function(fit, trans=\(x) x, inv_trans=\(x) x,
 
 #' @rdname loo_conformal
 #' @export
-loo_conformal.brmsfit = function(fit, trans=\(x) x, inv_trans=\(x) x,
+loo_conformal.brmsfit = function(fit, trans=function(x) x, inv_trans=function(x) x,
                                  est_fun=c("mean", "median"), ...) {
     class(fit) = setdiff(class(fit), "conformal")
     if (requireNamespace("brms", quietly=TRUE)) {
@@ -120,7 +120,8 @@ loo_conformal.brmsfit = function(fit, trans=\(x) x, inv_trans=\(x) x,
 
 # Wrap `fit` so that it can do conformal intervals
 make_conformal = function(fit, truth, preds, log_lik, chain,
-                          trans=\(x) x, inv_trans=\(x) x, est_fun="mean") {
+                          trans=function(x) x, inv_trans=function(x) x, 
+                          est_fun="mean") {
     N = length(truth)
     iter = nrow(log_lik)
 

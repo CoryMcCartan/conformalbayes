@@ -26,7 +26,8 @@ constant amount across all predictions, preserving the relative amount of
 uncertainty captured by the model. If \code{FALSE}, all predictive intervals
 will have (nearly) the same width.}
 
-\item{...}{Further arguments to the \code{\link[=posterior_predict]{posterior_predict()}} method for \code{object}.}
+\item{...}{Further arguments to the \link[rstantools:posterior_predict]{posterior_predict()}
+method for \code{object}.}
 }
 \value{
 A matrix with the number of rows matching the number of predictions.
@@ -44,7 +45,7 @@ if (requireNamespace("rstanarm", quietly=TRUE)) suppressWarnings({
     library(rstanarm)
     # fit a simple linear regression
     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
-        chains=1, iter=1000,
+        chains=1, iter=500,
         control=list(adapt_delta=0.999), refresh=0)
 
     m = loo_conformal(m)

@@ -10,11 +10,12 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
 
-* This is a resubmission.  It fixes a URL in the DESCRIPTION which had been
-redirected. This release also fixes CRAN notes caused by documentation
-incompatible with HTML5 standards.
+* This is a resubmission of a package removed from CRAN.  Unfortunately the
+previous maintainer e-mail was inaccessible and the notices were not received.
+
+* I have fixed the package anchor issue that caused the previous archival.
 
 * Examples should take less than five seconds to run but may occasionally exceed
 that time depending on the computing power of the environment in which they are

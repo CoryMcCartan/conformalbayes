@@ -1,3 +1,7 @@
+# conformalbayes 0.1.3
+
+* Update package anchors in documentation
+
 # conformalbayes 0.1.1
 
 * Update URLs

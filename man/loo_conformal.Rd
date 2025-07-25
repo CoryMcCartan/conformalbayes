@@ -55,8 +55,8 @@ as a point estimate.}
 }
 \value{
 A modified \code{fit} object with an additional class \code{conformal}.
-Calling \code{\link[=predictive_interval]{predictive_interval()}} on this new object will yield conformal
-intervals.
+Calling \link[rstantools:predictive_interval]{predictive_interval()} on this
+new object will yield conformal intervals.
 }
 \description{
 Prepares for jackknife(+) conformal prediction by performing Pareto-smoothed
@@ -67,7 +67,7 @@ if (requireNamespace("rstanarm", quietly=TRUE)) suppressWarnings({
     library(rstanarm)
     # fit a simple linear regression
     m = stan_glm(mpg ~ disp + cyl, data=mtcars,
-        chains=1, iter=1000,
+        chains=1, iter=500,
         control=list(adapt_delta=0.999), refresh=0)
 
     loo_conformal(m)
