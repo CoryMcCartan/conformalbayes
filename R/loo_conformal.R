@@ -20,6 +20,7 @@
 #'   new object will yield conformal intervals.
 #'
 #' @examples
+#' \donttest{ # takes several seconds
 #' if (requireNamespace("rstanarm", quietly=TRUE)) suppressWarnings({
 #'     library(rstanarm)
 #'     # fit a simple linear regression
@@ -29,6 +30,7 @@
 #'
 #'     loo_conformal(m)
 #' })
+#' }
 #'
 #' @references
 #' Vehtari, A., Simpson, D., Gelman, A., Yao, Y., & Gabry, J. (2015).

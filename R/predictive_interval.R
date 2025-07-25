@@ -28,6 +28,7 @@
 #'   `probs=0.9` the columns will be `5%` and `95%`.
 #'
 #' @examples
+#' \donttest{ # takes several seconds
 #' if (requireNamespace("rstanarm", quietly=TRUE)) suppressWarnings({
 #'     library(rstanarm)
 #'     # fit a simple linear regression
@@ -39,6 +40,7 @@
 #'     # make predictive intervals
 #'     predictive_interval(m)
 #' })
+#' }
 #'
 #' @references
 #' Barber, R. F., Candes, E. J., Ramdas, A., & Tibshirani, R. J. (2021).
