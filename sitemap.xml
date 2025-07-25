@@ -1,39 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/404.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/articles/conformalbayes.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/index.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/reference/conformalbayes-package.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/reference/loo_conformal.html</loc>
-  </url>
-  <url>
-    <loc>https://corymccartan.github.io/conformalbayes/reference/predictive_interval.conformal.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>http://corymccartan.com/conformalbayes/404.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/LICENSE-text.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/LICENSE.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/articles/conformalbayes.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/articles/index.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/authors.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/index.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/news/index.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/reference/conformalbayes-package.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/reference/index.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/reference/loo_conformal.html</loc></url>
+<url><loc>http://corymccartan.com/conformalbayes/reference/predictive_interval.conformal.html</loc></url>
 </urlset>
+
